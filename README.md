@@ -1,23 +1,13 @@
-# Nextra Docs Template 
+# Connectifi Docs
 
-This is a template for creating documentation with [Nextra](https://nextra.site).
+These are docs for [Connectifi](https://connectifi.co/), Your Next Integration Platform to
+accelerate time to value, remove complexity, and reduce costs.
 
-[**Live Demo →**](https://nextra-docs-template.vercel.app)
+## Feedback
 
-[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
+Feel free to add any bugs on the `issues` tab on Github. Additionally, do make any page suggestions you have by submitting a pull request to make a change. We'll get to this as soon as we can.
 
-## Quick Start
-
-Click the button to clone this repository and deploy it on Vercel:
-
-[![](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fshuding%2Fnextra-docs-template&showOptionalTeamCreation=false)
-
-## Local Development
+## Run the Docs
 
 First, run `pnpm i` to install the dependencies.
-
-Then, run `pnpm dev` to start the development server and visit localhost:3000.
-
-## License
-
-This project is licensed under the MIT License.
+Then, run `pnpm dev` to start the development server and visit `localhost:3000`.
