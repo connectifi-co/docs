@@ -1,7 +1,7 @@
 {
-  "name": "nextra-docs-template",
+  "name": "connectifi-docs",
   "version": "0.0.1",
-  "description": "Nextra docs template",
+  "description": "Connectifi Docs",
   "private": true,
   "homepage": "https://github.com/connectifi-co/docs",
   "scripts": {
