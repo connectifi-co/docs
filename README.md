@@ -11,3 +11,7 @@ Feel free to add any bugs on the `issues` tab on Github. Additionally, do make a
 
 First, run `pnpm i` to install the dependencies.
 Then, run `pnpm dev` to start the development server and visit `localhost:3000`.
+
+## Deployment and Github Pages
+
+Prior to deployment run `pnpm predeploy`, then to push the pages to Github pages, `gh-pages -d out`
