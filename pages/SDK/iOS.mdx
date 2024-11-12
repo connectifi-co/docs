@@ -1,0 +1,121 @@
+# iOS SDK Installation
+
+This package provides a wrapper around @connectifi/agent-web to provide native swift bindings. In addition, a default resolver UI that can be used in your application.
+
+* Installation
+* Swift Package Manager
+* Add package to your target dependencies in Package.swift:
+
+```
+import PackageDescription
+
+let package = Package(
+  name: "YourProject",
+  dependencies: [
+    .package(
+        url: "PUT_URL_HERE",
+        from: "PUT_VERSION_HERE"
+    ),
+  ]
+)
+```
+
+# Agent Setup
+The exposed class is ConnectifiAgent which implements the FDC3 2.0 API. The constructor takes two arguments with an optional third.
+
+* interopHost - the URL of the Connectifi service the app is targeting
+* appId - the FDC3 appId for the app. Note: this must be in the format of appName@directoryName (see security model in @connectifi/agent-web)
+* config - See the shape of the config struct below
+TODO: ADD PROPS AND OTHER CONFIG
+
+```
+public typealias ConnectifiEventHandler = (ConnectifiEvent) -> Bool
+
+public struct AgentConfig {
+    var connectifiEventHandler: ConnectifiEventHandler?
+}
+```
+
+* connectifiEventHandler - is a function that receives a connectifi event, specified below and can return true to overwrite the default behavior. Currently, only onAuthError, handleOpen, and handleIntentResolution. Default Behavior is as follows:
+* handleOpen - Opens the url of the app in safari
+* onAuthError - Will open the webview to prompt the user to login
+* handleIntentResolution - Will open the resolver UI if either of the connectifi sheets are mounted in the view
+
+```
+public enum ConnectifiEvent {
+    case handleIntentResolution(IntentResolutionRequest)
+    case handleOpen(ConnectifiOpenMessage)
+    case onAuthError(directoryName: String)
+    case onAppIdentityError(directoryName: String)
+    case onLoadError
+    case onChannelJoined(channel: String)
+    case onChannelLeft
+    case onConnected
+    case onDisconnected(retryTime: Double?)
+    case onWorkingChanged(working: Bool)
+    case onSignedIn(username: String)
+    case onSignedOut
+    case onFDC3Ready
+}
+```
+
+### handleIntentResolution
+This event is emitted when an ambiguous list of intent results is pushed to the app for the end user to resolve. The IntentResolutionRequest struct has two methods:
+
+resolveCallback(selected:ConnectifiApp, intent: String) - Select the app with the given intent.
+`closeCallback()` - Cancels the intent resolution request. The original "raise" call is resolved with an IntentResolution of the current app
+
+### View Setup
+This package exports ConnectifiContextView. This is used to mount an invisible webview inside your app to prevent it from automatically being killed. As such please mount it near the root of your application. This view also takes the internal view model of the ConnectifiAgent as an argument.
+
+Example Usage:
+
+```
+@main
+struct MyApp: App {
+    
+    // This is a wrapper around ConnectifiAgent
+    @StateObject var connectifiVM = ConnectifiViewModel()
+    
+    var body: some Scene {
+        WindowGroup {
+            NavigationStack {
+                ConnectifiContextView(internalVM: connectifiVM.connectifiAgent.internalVM){
+                    MainView()
+                }
+            }
+            .environmentObject(connectifiVM)
+        }
+    }
+}
+```
+
+In addition, if using the default resolver UI it has to also be mounted inside the application. This package provides the following extension to View.
+
+```
+public extension View {
+    func connectifiDevResolver(internalVMProjected: EnvironmentObject<ConnectifiInternalViewModel>.Wrapper) -> some View {
+        return self.sheet(item: internalVMProjected.intentResolution, content: {_ in ConnectifiResolverUIView().presentationDetents([.height(500)])})
+    }
+    
+    func connectifiShareResolver(internalVMProjected: EnvironmentObject<ConnectifiInternalViewModel>.Wrapper) -> some View {
+        return self.sheet(item: internalVMProjected.intentResolution, content: {_ in ConnectifiShareView().presentationDetents([.height(200)])})
+    }
+}
+```
+
+Two default resolver UIs are provided. connectifiDevResolver is most similar to the web resolver ui and provides a list view of all available apps. We recommend this resolver to mostly just be used for an easier debug experience. The connectifiShareResolver provides the users with an experience similar to that of the native iOS share sheet. This resolver UI is more intuitive to use and better aligns to iOS design expectations.
+
+Example Usage:
+
+```
+struct MainListView: View {
+    @EnvironmentObject var connectifiInternalVM: ConnectifiInternalViewModel
+    
+    var body: some View {
+        tickerListView
+            . ///
+            .connectifiShareResolver(internalVMProjected: $connectifiInternalVM)
+    }
+}
+```

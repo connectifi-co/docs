@@ -1,0 +1,142 @@
+# FDC3
+
+FDC3 is an open standard for applications on financial desktop to interoperate and exchange data with each other. Users benefit from a more joined-up experience, which reduces the "friction" in getting tasks done. Applications can launch each other, respond to activity in other apps and request functionality from each other.
+
+FDC3 is a framework, which can be easily leveraged within Connectifi. The advantage of using Connectifi, is that Connectifi works across web, desktop and mobile applications, so you are no longer limited to building all of your applications in a single framework.
+
+## Adding FDC3 to Your Application
+
+This article goes over how to add FDC3 to your application. Please note that you should already have created your directory and established your intents, apps, and contexts (as covered in our getting started article). 
+
+FDC3 standardizes nouns (contexts) and verbs (intents) that apps can leverage to establish functionality and share data. Apps can both send and receive FDC3 data and events. For the most part, connecting your applications with FDC3 is identifying where you application fits in this flow of data. 
+
+With FDC3, there are two types of events:
+
+* Emitting events
+* Consuming events
+
+In this article, we'll go over what both of these events are, functions that are associated with both and how to implement them.
+
+## Emitting Events
+
+Emitting events are typically used when data in one application has utility elsewhere. For example, if you are displaying a contacts list in a CRM, each contact is a potential input into any number of other systems (chat, telephony, internal databases, or external services). Leveraging emitting events will allow you to pass data from the original source into a new platform. A number of FDC3 functions exists to help with this including:
+
+* broadcast
+* raiseIntent
+* raiseIntentForContext
+
+## Broadcast
+
+The broadcast function allows an application to make a context (data) available to any connected application that is listening (this will be covered below). For example, if a users selects a contact in their CRM, using the broadcast function will make the details of that contact available for other connected applications to access. It is up to those connected applications to determine what they will do with the broadcasted contexts. If we continue with the example of a CRM contacts list, an example of a broadcast event would be broadcasting a specific contact's email address; a connected application, let's say an email client, might use this data to open a window to create a new email with the recipient as the contact's email.
+
+A simple way to implement the broadcast function looks like this:
+
+```
+    //broadcast an fdc3 context
+    fdc3.broadcast({
+    type: "fdc3.contact",
+    name: "Jane Doe",
+    id: {
+        email: "jane.doe@mail.com"
+    }
+    });
+```
+
+### raiseIntent
+
+The `raiseIntent` function defers functionality to the end user's environment. This allows the application raising the intent to create an experience where the end user can choose which connected application handles the contexts that are being shared and guide the workflow. For example, an application displaying overview data for financial instruments may want to defer the charting function for the end user to choose. The overview app would raise an intent to 'ViewChart' and the user would be presented with a number of charting applications to choose from (and the overview app doesn't have to know about any of them).
+
+To implement this, the code would like the following:
+
+```
+    fdc3.raiseIntent('ViewChart', {
+    type: 'fdc3.instrument',
+    id: {
+        ticker: 'AAPL'
+    }
+ });
+ ```
+
+When an intent is raised, if there are multiple apps that can handle the intent, the end user is presented with options in what's called an intent resolver. The default resolver UI in Connectifi looks like this:
+
+![Hello](../public/intents/intent-resolver.png)
+
+
+
+Please note that the resolver identifies instances of currently running apps that an intent can be sent to and apps from the directory that can be opened with the intent as well.
+
+### raiseIntentForContext
+
+The `raiseIntentForContext` function works very similarly to the raiseIntent function, but with a much broader scope. While the raiseIntent function finds all applications that are able to handle a specific intent, the raiseIntentForContext function finds all applications, grouped by intents, that utilize intents that can consume a passed context as input. Implementing the raiseIntentForContext would look something like this:
+
+```
+    fdc3.raiseIntentForContext({
+    type: 'fdc3.instrument',
+    id: {
+        ticker: 'AAPL'
+    }
+ })
+ ```
+
+
+The intent resolver looks very similar to that for raiseIntent:
+
+![Hello](../public/intents/intent-resolver2.png)
+
+## Consuming Events
+
+Now that we've covered emitting events, we need to do something with the data that's sent from them. This is where consuming events come in. Listeners are used to ingest contexts and respond to emitting events. When adding listeners to you app, you will want to consider the following:
+
+How are you generating the data that is displayed by your app? What are the data sources? 
+What is the main function of your app? What does the app do with generated data? What is the primary intent?
+Are there additional discrete functions or modes of your? Are there secondary functions for the app? What other intents does the app leverage?
+
+In this article, we'll cover the following functions used for consuming events:
+
+* addContextListener
+* addIntentListener
+* unsubscribingListeners
+* joiningChannels
+
+### addContextListener
+
+The `addContextListener function allows you to create context listeners to pick up broadcasted data (context). Context listeners are triggered when a matching context is broadcasted from a connected app; in other words, this type of listener is driven by the type of data this is being passed. Apps are considered connected when they are joined to the same user/system channel (covered below). When configuring a context listener, a context type can be specified as a filter on which context events to pick up. If a filter is specified, all context events, regardless of type, will be sent to the listener. The listener will then utilize a callback function, which passes the broadcasted FDC3 context. Any number of listeners can be set and called when a matching context broadcast occurs. 
+
+Adding a context listener looks like this:
+
+```
+const listener = await fdc3.addContextListener('fdc3.instrument', (context) => {
+    console.log("got an instrument context!", context);
+});
+```
+
+### addIntentListener
+
+The `addIntentListener` function works very similarly to the addContextListener function; however, it is driven by intents, rather than contexts. In other words, the intent listener is triggered when a specified intent is detected. When configuring an intent listener, the name of the intent the listener is looking for must be specified.
+
+An example of adding an intent listener would look like this:
+
+```
+const listener = await fdc3.addIntentListener('ViewChart', (context) => {
+    drawChart(context);
+});
+```
+
+## Unsubscribing Listeners
+
+While a listener's purpose is to pick up specific intents or contexts that are passed, listeners can also be turned off using the unsubscribe function. When a context or intent listener is created, a listener object is returned. The code for unsubscribing a listener is:
+
+`listener.unsubscribe()`
+
+# FDC3 Connectifi Sandbox
+
+There is no faster way to get up and running with Connectifi FDC3 than trying out our [Sandbox](https://apps.connectifi-interop.com/sandbox)! Explore app interop directly in your browser using the Connectifi service. Leverage the built in demo apps or use as a test harness to build your own apps. You can use Connectifi’s Sandbox to build and test your own applications. Use this code to make the connection:
+
+```
+        const fdc3 = await createAgent(
+              `https://dev.connectifi-interop.com`,
+              `*@sandbox`,
+            );
+```
+
+note: the '' in '@sandbox' is a convention for unregistered apps to connect to what's called an open directory. Since the sandbox directory is meant to be for development purposes only, it doesn't require registry or identity validation of the apps connecting in to it.

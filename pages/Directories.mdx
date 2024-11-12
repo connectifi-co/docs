@@ -1,0 +1,72 @@
+# Directories
+
+Directories help you segment and separate your applications. In many ways, they reflect folder systems, where user groups may have permission to a certain set of applications. Here we use directories for the following reasons:
+
+1. **Restrict application communication:** Ensure applications can communicate to one another, securely. This prevents external apps from communicating to authorised applications when they shouldn't.
+2. **Team specific applications:** Teams can use widely different applications. This enables you to create groups of applications refective of internal team usage.
+3. **Development Environments:** Folders can reflect development environments, such as development, staging, testing or prod. 
+
+
+![Grid view of all directories](../public/directories/directories.png)
+
+
+## Creating Directories
+
+With Connectifi, applications interop by connecting to the same directory. The directory determines what applications can participate and defines the security parameters. Applications, contexts, and intents are all defined within a directory. 
+
+To create a directory:
+
+1. Sign into the Connectifi admin UI. If you have your own instance of Connectifi, a custom URL is created for your environment `account_name`.connectifi-interop.com
+2. Click on the 'Directories' in the Left hand nav. Here you will be presented with a grid or list view of all of your directories. 
+3. Click on 'Create Directory', in order to create a new directory.
+4. Begin filling in the name and description of the directory to determine the objective of the directory.
+5. Add your directories logo. We recommend a 256x256 png.
+
+![Create Directory](../public/directories/new_directory.png)
+
+
+6. The “Interop Strategy” setting determines the security and access model for the directory
+    1. Open: Any applications can connect to the directory
+    2. Open+Auth: Any application can connect to the directory, but the user needs to be logged into Connectifi to connect to the directory.
+    3. App: Only applications registered in the directory can connect to the directory
+    4. Strict: Users must be logged into added applications and said applications must be registered in the directory in order to connect to the directory
+
+![Create Directory](../public/directories/new_directory_settings.png)
+
+4. The “Allow Instance Discovery” option restricts how much data applications can access via the FDC3 API
+5. Broadcasting, provides a default communication bus, where if an application sends a message it will send it to all other applications. This is simplier, than having channels, which provides you the ability for apps to be grouped onto the same communication channel.  
+6. The “Deliver Hook” setting allows you to specify an endpoint that can ingest data sent from broadcast or intents in the directory. For more details on this, feel free to check out our article on delivery hooks found here.
+6. Click the 'Create' button at the bottom of the page to complete creating your directory.
+
+## Edit Directories
+
+1. **From the directories level:** Click on the actions on the directory card. Select 'Edit' to begin editing or 'Settings' to view all of the settings.
+
+![Create Directory](../public/directories/new_directory_settings.png)
+
+2. **From view directory:** Click on the upper right 'Edit Settings' button.
+
+3. Don't forget to click 'Update' when you've completed yoru changes. Your changes will take immediate affect. 
+
+![Create Directory](../public/directories/edit-settings.png)
+
+## Connecting to a Directory
+With Connectifi, applications participate in interop by connecting to the same directory. The directory determines what applications can participate and what the security parameters will be.
+
+To connect to a directory, use the createAgent function exported from the agent-web module, and pass in the service URL and the identity of your application. This will return a Promise resolving to a standard FDC3 API.
+
+```
+import { createAgent } from '@connectifi/agent-web';
+
+        const fdc3 = await createAgent(
+              `https://[ME].connectifi-interop.com`,
+              `$[appName]@$[directoryName]`,
+            );
+```
+
+Note: Because the FDC3 API is returned as a scoped variable, your application can leverage any number of approaches to FDC3. For example, the API can be used in module scope - allowing for multiple connections on a page, or it can be declared as a global - providing backwards compatibility with desktop container patterns. Also, the connection to the service can be multiplexed to allow for multiple FDC3 'apps' in a single page. For an example of multiplexing, see this open source repo.
+
+
+
+
+

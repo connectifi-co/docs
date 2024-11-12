@@ -1,0 +1,44 @@
+# DotNet SDK Installation
+
+This [repository](https://github.com/connectifi-co/agent-dotnet) provids a native .NET cliet for the Connectifi service along with a WPF wrapper and an example application.
+
+`AgentWPF:` WPF wrapper of the Connectifi.DesktopAgent making is the Agent easily consumable in a WPF application
+
+`Connectifi.DesktopAgent:` the core DesktopAgent APIs and mechanics of the Connectifi agent
+ConnectifiWpfApp: test application for the Connectifi.DesktopAgent project
+
+`Equity Order Book:` Demo WPF application using AgentWPF to connect
+
+## Usage
+Set [Equity Order Book](https://github.com/connectifi-co/equity-orderboo) as startup project.
+
+Modify the Agent interop service URL and appId in Equity Order `Book/MainWindow.xaml.cs` as needed. e.g.
+
+```
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var agentControl = new DesktopAgentWPF();
+            (this.Content as Grid).Children.Add(agentControl);
+            desktopAgent = await agentControl.CreateAgent([INTEROP SERVICE URL HERE], [APPID HERE]);
+ 
+            desktopAgent.OnHandleIntentResolution += (_, evt) =>
+            {
+                _resolverDialog = new AppSelectionWPF(this);
+                CurrentIntent = _currentIntent;
+                CurrentTicker = _currentTicker;
+                _resolverDialog.ShowAppSelectionAsync(evt.HandleIntentResolution);
+            };
+            desktopAgent.OnConnectifiEvent += OnConnectifiEvent;
+            return;
+        }
+```
+
+Note: you will need to connect to an authenticated directory to have connection between your .NET App and another tech stack like a browser.
+
+To use with your own .NET application, [fork this repo](https://github.com/connectifi-co/agent-dotnet).
+
+### Dependencies
+
+* [Json.NET](https://learn.microsoft.com/en-us/microsoft-edge/webview2/)
+* [Microsoft WebView2](https://github.com/JamesNK/Newtonsoft.Json)
+* [fdc3-dotnet](https://github.com/morganstanley/fdc3-dotnet)

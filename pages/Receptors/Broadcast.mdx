@@ -1,0 +1,16 @@
+# Broadcast
+
+This scenario allows you to join a channel and broadcast contexts to other apps, on behalf of a user.
+
+
+- `From` header is the email of who you want to perform the broadcast on behalf of. 
+- `Allowed Channels`: The list of channels this receptor is allowed to broadcast, an empty list implies all channels
+
+
+### Notes
+
+* Broadcasting must be targeted at specific user sessions; the user's email address specifies the session.
+* You can use the picker to join a color-coded System/User channel and then use the grid to broadcast an instrument context or the 'Advanced' option to broadcast any type of context. You can see the resulting channel context using the 'Channel Viewer' or load an app that receives context in the right panel (for example, a chart or news app).
+
+
+![Hello](../../public/receptors/receptor_broadcast.png)

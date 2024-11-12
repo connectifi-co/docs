@@ -1,7 +1,14 @@
 {
   "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "SDK": "SDK",
+  "Channels": "Channels",
+  "Applications": "Applications",
+  "Directories": "Directories",
+  "Intents": "Intents",
+  "Contexts": "Contexts",
+  "Actions": "Actions",
+  "Receptors": "Receptors",
+  "Security": "Security",
   "about": {
     "title": "About",
     "type": "page"
@@ -9,7 +16,7 @@
   "contact": {
     "title": "Contact ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "mailto:support@connectifi.co",
     "newWindow": true
   }
 }

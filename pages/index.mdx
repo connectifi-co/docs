@@ -1,11 +1,75 @@
-# Introduction
- 
-Welcome to Nextra! This is a basic docs template. You can use it as a starting point for your own project :)
+# Getting Started with Connectifi
 
-## What is Nextra?
+Connectifi is a cloud service that securely connects applications for interoperability across different technologies and devices. It is the easiest way to use the FDC3 standard and works without installs so that FDC3 can be used directly in a browser, bridging across desktop containers, and even in mobile and across devices. Integrating your app with Connectifi consists of 3 basic steps:
 
-A **simple**, **powerful** and **flexible** site generation framework with everything you love from Next.js.
+* Add the Connectifi Agent module to your application
+* Make a connection to a directory
+* Add FDC3 hooks into your application
 
-## Documentation
+Let’s go through each step in detail.
 
-The documentation is available at [https://nextra.site](https://nextra.site).
+# Using the Customization Examples
+Connectifi is built to work with the brand and UX of your platform. To help you get started fast, this repo is home to a collection of code examples detailing how to customize the Connectifi Agent. All the code is open source and can be found in the /examples directory. To try it out:
+
+* clone this repo
+* npm install
+* npm run dev
+*  go to http://localhost:9090/examples/index.html for a list of all examples
+
+Got a use case you don't see here? Create an issue and let us know about it.
+
+note: For examples of how to use FDC3 API, the best place to start is with the Connectifi FDC3 Sandbox.
+
+## Setting up the Agent
+The Connectifi Agent is a small javascript module that lives in your application and is used to make and manage the connection to the Connectifi service and translate this into a standard FDC3 API for the consuming application. The module also provides some default UI which can be fully customized.
+
+The agent is available as a NPM module and can be integrated into your application through standard web toolchains.
+
+Install into your code using NPM:
+
+`npm i @connectifi/agent-web`
+
+or, access via CDN:
+
+https://unpkg.com/@connectifi/agent-web/dist/main.js
+
+
+You can use to following code to do this:
+
+```
+    import { createAgent } from 'https://[interop-endpoint].connectifi-interop.com/agent/main.bundle.js';
+    const fdc3 = await createAgent(
+          `https://[interop-endpoint].connectifi-interop.com`,
+          `$[appName]@$[directoryName]`,
+          );
+
+```
+## Connectifi Sandbox Directory
+
+There is no faster way to get up and running with Connectifi than trying out our [Sandbox](https://apps.connectifi-interop.com/sandbox)! Explore app interop directly in your browser using the Connectifi service. Leverage the built in demo apps or use as a test harness to build your own apps. You can use Connectifi’s Sandbox to build and test your own applications. Use this code to make the connection:
+
+```
+        const fdc3 = await createAgent(
+              `https://dev.connectifi-interop.com`,
+              `*@sandbox`,
+            );
+```
+
+note: the '' in '@sandbox' is a convention for unregistered apps to connect to what's called an open directory. Since the sandbox directory is meant to be for development purposes only, it doesn't require registry or identity validation of the apps connecting in to it.
+
+### Notes
+
+* Replace [interop-endpoint] with your own endpoint's value. For example, if you're connecting to our sandbox, you would use 'dev.' 
+* You will need an application and direction set up so you can have values for [appName] and [directoryName] 
+
+This code will not only create the Connectifi agent, but also connects you to the appropriate directory.
+
+The Connectifi agent is also available for .NET. We support .NET Framework 4.6.2+ and .NET 7+; this was announced in February 2024 on our blog. An instance of the desktop agent can be created with the following line of code:
+
+`var desktopAgent = new DesktopAgent(webView2.CoreWebView2)`
+
+For more details on the .NET agent, please check out the NuGet package page here.
+
+We have an example of a .NET application, which includes a full login implementation, that can be found here: https://github.com/connectifi-co/equity-orderbook
+
+Once your directory, contexts, intents, and apps are configured, the next step will be adding FDC3 to your application.
