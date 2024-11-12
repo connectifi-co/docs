@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d out"
   },
   "repository": {
     "type": "git",
