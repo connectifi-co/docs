@@ -13,5 +13,5 @@ module.exports = {
   },
   assetPrefix: isProd ? '/docs-test/' : '',
   basePath: isProd ? '/docs-test' : '',
-  output: 'export'
+  output: 'standalone'
 };
