@@ -11,7 +11,5 @@ module.exports = {
   images: {
     unoptimized: true,
   },
-  assetPrefix: isProd ? '/docs/' : '',
-  basePath: isProd ? '/docs' : '',
   output: 'standalone'
 };
