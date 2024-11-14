@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Connectifi Docs",
   "private": true,
-  "homepage": "https://github.com/connectifi-co/docs",
+  "homepage": "https://docs.connectifi.co/",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
