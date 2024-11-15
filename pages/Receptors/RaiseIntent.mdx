@@ -1,6 +1,8 @@
-# Raise an Intent Receptor
+# Raise Intent Receptor
 
-This scenario lets you raise a sample intent or build a custom one. Select an intent from the grid below, and the Connectifi service will provide you with a list of apps you can route the intent to. The intent can launch either a new app or be raised to an existing app if one is running.
+This scenario lets you raise an intent on behalf of a user. If an intent is ambiguous (more than one application is found that can handle the intent), the available options will be returned.  Providing a target in the call will fix the intent to a specific app.
+
+- `From` header is the email of who you want to raise the intent on behalf of. 
 
 
 ![Hello](../../public/receptors/receptor_intent.png)

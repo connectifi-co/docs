@@ -4,9 +4,9 @@ Channels provide apps isolated environments to display their data by having the 
 
 App channels are very useful when it comes to more advanced orchestration of behavior between applications, especially when there is a singleton or platform application orchestrating a number of child or satellite applications. Some use cases may include:
 
-* Tracking the state of a singleton application across multiple tech stacks
 * Publishing application data shared outside of intents or other user actions
 * Synchronizing a user state for a session across multiple applications and tech stacks
+* Publishing notifications from a service to any number of applications
 
 ## Custom Channels
 
@@ -30,7 +30,7 @@ Please note that when using custom channels, the default channels are not includ
 
 ## joiningChannels
 
-As mentioned previously, apps can be joined to a user channel (referred to as system channel in FDC3 1.x) by the end user. This links any apps on a channel so that a call to `fdc3.broadcast` is routed to context listeners (set via `fdc.addContextListener`) from any other app on the same channel.
+As mentioned previously, apps can be joined to a user channel (referred to as system channel in FDC3 1.x) by the end user. This links any apps on a channel so that a call to `fdc3.broadcast` is routed to context listeners (set via `fdc3.addContextListener`) from any other app on the same channel.
 
 Please note that an app can only be joined to one channel at a time.
 
@@ -38,7 +38,7 @@ Apps can be joined to a channel using either the UI or programmatically. In the
 
 If you're doing it programmatically, the code would look something like this:
 
-```
+```js
  await fdc3.joinUserChannel('red');
 console.log('red channel joined!');
 
@@ -61,7 +61,7 @@ When a channel is joined, it will automatically receive the current context for 
 ## Getting a Channel
 
 The getOrCreateChannel function provides a reference to a channel object that can be used to broadcast, assign listeners, and query for context state. For example:
-```
+```js
     //programmatically subscribe the 'red' system channel
     const redChannel = await fdc3.getOrCreateChannel('red');
 
