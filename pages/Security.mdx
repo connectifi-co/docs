@@ -1,0 +1,27 @@
+# Security
+
+Connectifi is a security first environment.  That said, there are inherent security risks with interoperability and integrations.  Here are some of the features Connectifi provides and best practices we recommend to ensure the highest level of security in your Connectifi environment.
+
+## Set the Appropriate Directory Configuration
+Directories are your first line of defense for securing interoperability.  Here are some best practices:
+
+### Interop Strategy
+The `interop strategy` of a directory determines how the service can be accessed by applications.  For development, 'Open' and 'Open & Auth' are appropriate settings, as they reduce the amount of provisioning required by an admin.  
+However, when going to a production environment, it is best practice use 'Strict' (requiring both Application and User Identity), or 'App' (requiring Application Identity - but restricted to a single client session).
+
+### Instance Discovery
+Some FDC3 APIs return data about app instances in a permissive way, potentially allowing applications to 'mine' data about the end users environment.  Turning instance discovery off at the directory level will redact this information.
+
+### Delivery Hooks
+Delivery Hooks can be defined per context data type on a directory basis.  Anytime context data is delivered to an application (by broadcast or intents), it goes through the assigned Delivery Hook first.  The Delivery Hook can modify the context data for each recipient, allowing for policy enforcement based on sender, recipient, and the nature of the data being shared.
+
+Read more about how Delivery Hooks can be used to enforce data security policies [here](https://www.connectifi.co/post/shifting-security-left).
+
+## Use Safe Development Practices in the Agent SDK
+An interoperability standard like FDC3 is only as secure as its least secure participant.  With that, it's always critical to exercise caution when connecting applications where security profile can't be verified or there is an impedance mismatch around capabilities and security.  For example, native applications and applications running in desktop containers do not have the same robust sandbox model of applications running in standard browsers.
+
+We recommend the following best practices:
+* When using the Web Agent SDK, scope the FDC3 api so that there isn't arbitrary global access within your application window.
+* If building custom UI, provide visual cues and warnings if a URL for an intent is going to a non-https/unsecure location
+* Validate context data before using it or relaying it
+* If applications are using an Electron.js desktop technology, ensure they are following Electron best practices for [security](https://www.electronjs.org/docs/latest/tutorial/security).

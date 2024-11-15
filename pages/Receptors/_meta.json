@@ -1,6 +1,6 @@
 {
-    "Receptors": "Receptors",
+    "Receptors": "Overview",
     "Broadcast": "Broadcast",
-    "Multibroadcast": "Multi-Broadcast",
-    "RaiseIntent": "Raise Intent"
+    "RaiseIntent": "Raise Intent",
+    "Multibroadcast": "Multi-Broadcast"
 }

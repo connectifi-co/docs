@@ -6,7 +6,7 @@ This package provides a wrapper around @connectifi/agent-web to provide native s
 * Swift Package Manager
 * Add package to your target dependencies in Package.swift:
 
-```
+```swift
 import PackageDescription
 
 let package = Package(
@@ -28,7 +28,7 @@ The exposed class is ConnectifiAgent which implements the FDC3 2.0 API. The cons
 * config - See the shape of the config struct below
 TODO: ADD PROPS AND OTHER CONFIG
 
-```
+```swift
 public typealias ConnectifiEventHandler = (ConnectifiEvent) -> Bool
 
 public struct AgentConfig {
@@ -41,7 +41,7 @@ public struct AgentConfig {
 * onAuthError - Will open the webview to prompt the user to login
 * handleIntentResolution - Will open the resolver UI if either of the connectifi sheets are mounted in the view
 
-```
+```swift
 public enum ConnectifiEvent {
     case handleIntentResolution(IntentResolutionRequest)
     case handleOpen(ConnectifiOpenMessage)
@@ -70,7 +70,7 @@ This package exports ConnectifiContextView. This is used to mount an invisible w
 
 Example Usage:
 
-```
+```swift
 @main
 struct MyApp: App {
     
@@ -92,7 +92,7 @@ struct MyApp: App {
 
 In addition, if using the default resolver UI it has to also be mounted inside the application. This package provides the following extension to View.
 
-```
+```swift
 public extension View {
     func connectifiDevResolver(internalVMProjected: EnvironmentObject<ConnectifiInternalViewModel>.Wrapper) -> some View {
         return self.sheet(item: internalVMProjected.intentResolution, content: {_ in ConnectifiResolverUIView().presentationDetents([.height(500)])})
@@ -108,7 +108,7 @@ Two default resolver UIs are provided. connectifiDevResolver is most similar to 
 
 Example Usage:
 
-```
+```swift
 struct MainListView: View {
     @EnvironmentObject var connectifiInternalVM: ConnectifiInternalViewModel
     

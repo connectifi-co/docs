@@ -12,11 +12,11 @@ Directories help you segment and separate your applications. In many ways, they 
 
 ## Creating Directories
 
-With Connectifi, applications interop by connecting to the same directory. The directory determines what applications can participate and defines the security parameters. Applications, contexts, and intents are all defined within a directory. 
+With Connectifi, applications interoperate by connecting to the same directory. The directory determines what applications can participate and defines the security parameters. Applications and their mappings to contexts and intents are all defined within a directory. 
 
 To create a directory:
 
-1. Sign into the Connectifi admin UI. If you have your own instance of Connectifi, a custom URL is created for your environment `account_name`.connectifi-interop.com
+1. Sign into the Connectifi admin UI at https://platform.connectifi.app.  If you have an enterprise instance of Connectifi, a custom URL is created for your environment, typically: `account_name`.connectifi.app.
 2. Click on the 'Directories' in the Left hand nav. Here you will be presented with a grid or list view of all of your directories. 
 3. Click on 'Create Directory', in order to create a new directory.
 4. Begin filling in the name and description of the directory to determine the objective of the directory.
@@ -34,8 +34,8 @@ To create a directory:
 ![Create Directory](../public/directories/new_directory_settings.png)
 
 4. The “Allow Instance Discovery” option restricts how much data applications can access via the FDC3 API
-5. Broadcasting, provides a default communication bus, where if an application sends a message it will send it to all other applications. This is simplier, than having channels, which provides you the ability for apps to be grouped onto the same communication channel.  
-6. The “Deliver Hook” setting allows you to specify an endpoint that can ingest data sent from broadcast or intents in the directory. For more details on this, feel free to check out our article on delivery hooks found here.
+5. Broadcasting, provides a default communication bus, where if an application sends a message it will send it to all other applications. This is simpler, than having channels, which provides you the ability for apps to be grouped onto the same communication channel.  
+6. The “Delivery Hook” setting allows you to specify an endpoint that can transform context data sent from broadcast or intents in the directory. This can be done on a per/context data type basis and can be used to normalize and enhance context transferred between applications as well as to redact and enforce data security policies.
 6. Click the 'Create' button at the bottom of the page to complete creating your directory.
 
 ## Edit Directories
@@ -46,25 +46,25 @@ To create a directory:
 
 2. **From view directory:** Click on the upper right 'Edit Settings' button.
 
-3. Don't forget to click 'Update' when you've completed yoru changes. Your changes will take immediate affect. 
+3. Don't forget to click 'Update' when you've completed your changes.  Changes will take immediate affect. 
 
 ![Create Directory](../public/directories/edit-settings.png)
 
 ## Connecting to a Directory
-With Connectifi, applications participate in interop by connecting to the same directory. The directory determines what applications can participate and what the security parameters will be.
+Directories determines what applications can participate and what the security parameters will be.  Any application using the Agent SDK makes a connection to a directory.
 
 To connect to a directory, use the createAgent function exported from the agent-web module, and pass in the service URL and the identity of your application. This will return a Promise resolving to a standard FDC3 API.
 
-```
+```js
 import { createAgent } from '@connectifi/agent-web';
 
         const fdc3 = await createAgent(
-              `https://[ME].connectifi-interop.com`,
+              `https://platform.connectifi.app`,
               `$[appName]@$[directoryName]`,
             );
 ```
 
-Note: Because the FDC3 API is returned as a scoped variable, your application can leverage any number of approaches to FDC3. For example, the API can be used in module scope - allowing for multiple connections on a page, or it can be declared as a global - providing backwards compatibility with desktop container patterns. Also, the connection to the service can be multiplexed to allow for multiple FDC3 'apps' in a single page. For an example of multiplexing, see this open source repo.
+Note: Because the FDC3 API is returned as a scoped variable, your application can leverage any number of approaches to FDC3. For example, the API can be used in module scope - allowing for multiple connections on a page, or it can be declared as a global - providing backwards compatibility with desktop container patterns. Also, the connection to the service can be multiplexed to allow for multiple FDC3 'apps' in a single page. For an example of multiplexing, see this [open source repo](https://github.com/connectifi-co/fdc3-web-portal).
 
 
 

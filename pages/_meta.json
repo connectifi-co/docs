@@ -1,15 +1,16 @@
 {
   "index": "Introduction",
   "SDK": "SDK",
-  "Channels": "Channels",
-  "Applications": "Applications",
   "Directories": "Directories",
   "Intents": "Intents",
   "Contexts": "Contexts",
+  "Applications": "Applications",
   "Actions": "Actions",
   "Receptors": "Receptors",
+  "Channels": "Channels",
   "Security": "Security",
   "FDC3": "FDC3",
+  "Sandbox": "Sandbox & Demos",
   "contact": {
     "title": "Contact ↗",
     "type": "page",

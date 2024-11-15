@@ -1,20 +1,24 @@
 # Receptors
 
-Receptors define incoming data endpoints allowing services to push context data to end-users. A Receptor exposes a web hook URL that can be called by outside services to push messages to users on behalf of the app. Receptor hooks can be used for a wide range of use cases such as:
+Receptors define incoming data endpoints allowing external services to push context data to end-users, raise intents, or call other APIs. Receptor hooks can be used for a wide range of use cases such as:
 
 * Push in-app alerts to users from backend services
-* Integrations between FDC3 applications and back-end services and non-FDC3 applications such as CLIs and macros
+* Integrations between FDC3 applications and back-end services and non-FDC3 applications such as SaaS applications, CLIs, and macros
 * Sharing context objects between users.
 
 Receptors equip your applications to:
 
-1. **Broadcast:** This scenario allows you to join a channel and broadcast contexts to other apps, on behalf of a user.
-2. **Multi Broadcast:**
-3. **Raise an Intent:** This scenario lets you set up intent handlers. Use the form to select an intent to listen for. You can test the listener against a demo app or your app using the panel on the right.
-
+1. **Broadcast:** Broadcast context to a channel on behalf of a user.
+2. **Multi Broadcast:**  Broadcast context to a channel for multiple users.
+3. **Raise Intent:** Raise an intent on behalf of a user. 
+4. **Find Intent:**  Call the findIntent API on behalf of a user.
 
 ## Creating a Receptor
 
-When creating an application, you can add Receptors. Click on the top-right of the screen to 'Add Receptor'. You can add as 
+When creating an application, you can add Receptors. Click on the top-right of the screen to 'Add Receptor'. The receptor will generate a unique API Key to be used in the request.  As will all keys, keep this secret and rotate frequently.
+
+## User identity
+
+All Receptors connect into specific user sessions.  Users are identified by email, so directories using Receptors must be of types `Open & Auth` or `Strict` (i.e. require user login) for the Receptor to b functional.  
 
 ![Hello](../../public/receptors/receptor_empty_state.png)
