@@ -1,0 +1,31 @@
+# TradingView Chart
+A free and powerful financial chart easily integrated into any workflow. [TradingView](https://www.tradingview.com/) is a social media network, analysis platform and mobile app for traders and investors. 
+
+## Application Name
+In the **Application Info** step, set *Application Name* as `tradingviewChart`.
+
+![Application Info Settings](../../../public/demos/imports/tradingviewchart/info.png)
+
+## Start URL & Intents
+
+In the **Agent SDK** step, select SDK Type of *Web App*.
+
+Set *Start URL* as (substituting the code for your directory as described [earlier](/Sandbox/Imports)): `https://demos.connectifi.app/platform/{YOUR_DIRECTORY_CODE}/tradingviewChart`
+
+### Configure Supported Intents
+This registers the intents the app supports with the directory, so that the app is fully discoverable and can be launched using the *start url* provided.
+
+Select the Intent: `ViewChart`
+
+Select the following supported Contexts: 
+- `fdc3.instrument`
+
+**Note:** once you’ve added an intent, click on the chip for the intent to get the picker list for contexts.
+
+![Agent SDK Settings](../../../public/demos/imports/tradingviewchart/agent.png)
+
+## Finish
+
+Got to the **Preview** step, check your settings, and select *Finish* to save the application.  
+
+Test the app using its Start URL, it should load and connect to the directory. If it has registered intents, it will now be discoverable.

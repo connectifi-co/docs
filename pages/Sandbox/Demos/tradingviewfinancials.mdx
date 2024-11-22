@@ -1,0 +1,31 @@
+# TradingView Financials
+[TradingView](https://www.tradingview.com/) is a social media network, analysis platform and mobile app for traders and investors.  Kick the tires on the fundamentals with this deep dive into how a company is doing beyond simply its stock price.
+
+## Application Name
+In the **Application Info** step, set *Application Name* as `financials`.
+
+![Application Info Settings](../../../public/demos/imports/tradingviewfinancials/info.png)
+
+## Start URL & Intents
+
+In the **Agent SDK** step, select SDK Type of *Web App*.
+
+Set *Start URL* as (substituting the code for your directory as described [earlier](/Sandbox/Imports)): `https://demos.connectifi.app/platform/{YOUR_DIRECTORY_CODE}/financials`
+
+### Configure Supported Intents
+This registers the intents the app supports with the directory, so that the app is fully discoverable and can be launched using the *start url* provided.
+
+Select the Intent: `ViewInstrument`
+
+Select the following supported Contexts: 
+- `fdc3.instrument`
+
+**Note:** once you’ve added an intent, click on the chip for the intent to get the picker list for contexts.
+
+![Agent SDK Settings](../../../public/demos/imports/tradingviewfinancials/agent.png)
+
+## Finish
+
+Got to the **Preview** step, check your settings, and select *Finish* to save the application.  
+
+Test the app using its Start URL, it should load and connect to the directory. If it has registered intents, it will now be discoverable.

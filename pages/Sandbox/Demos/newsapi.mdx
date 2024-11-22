@@ -1,0 +1,31 @@
+# News API
+[News API](https://www.newsapi.ai/) is a simple, easy-to-use REST API that returns JSON search results for current and historic news articles published by over 150,000 worldwide sources.  This demo app provides basic news search based on a ticker.
+
+## Application Name
+In the **Application Info** step, set *Application Name* as `newsAPI`.
+
+![Application Info Settings](../../../public/demos/imports/newsapi/info.png)
+
+## Start URL & Intents
+
+In the **Agent SDK** step, select SDK Type of *Web App*.
+
+Set *Start URL* as (substituting the code for your directory as described [earlier](/Sandbox/Imports)): `https://demos.connectifi.app/platform/{YOUR_DIRECTORY_CODE}/newsAPI`
+
+### Configure Supported Intents
+This registers the intents the app supports with the directory, so that the app is fully discoverable and can be launched using the *start url* provided.
+
+Select the Intent: `ViewNews`
+
+Select the following supported Contexts: 
+- `fdc3.instrument`
+
+**Note:** once you’ve added an intent, click on the chip for the intent to get the picker list for contexts.
+
+![Agent SDK Settings](../../../public/demos/imports/newsapi/agent.png)
+
+## Finish
+
+Got to the **Preview** step, check your settings, and select *Finish* to save the application.  
+
+Test the app using its Start URL, it should load and connect to the directory. If it has registered intents, it will now be discoverable.
