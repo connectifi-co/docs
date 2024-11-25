@@ -14,4 +14,4 @@ Then, run `pnpm dev` to start the development server and visit `localhost:3000`.
 
 ## Deployment and Github Pages
 
-Prior to deployment run `pnpm predeploy`, then to push the pages to Github pages, `gh-pages -d out`
+Deployment happens in GH Actions after a PR is merged.  Please open a PR with your proposed changes.
