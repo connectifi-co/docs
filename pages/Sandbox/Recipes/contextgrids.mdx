@@ -7,7 +7,7 @@ You will need the following to build this integration:
 
 - an account and a directory set up with [Connectifi](https://platform.connectifi.app)
 - your front end framework of choice
-- ability to host a web app or run it locally
+- a data set for your grid 
 
 This recipe is not a tutorial on building grid applications.  At Connectifi, we've used the AdapTable Tools Grid, MUI XGrid, and AG Grid.   All of these and many others are fine choices for grid functionality depending on your specific needs and preferences.  
 
@@ -18,7 +18,7 @@ This recipe is based on the Connectifi Watchlist app (pictured below).  You can 
 
 ![Connectifi Watchlist](../../../public/demos/recipes/contextgrids/watchlist.png)
 ### Create Your Directory and App Connection
-If you have not done so already, go to [https://platform.connectifi.app](https://platform.connectifi.app) and create a directory.  When setting up your directory, we recommend starting with an Interop Strategy setting of ‘Open’ or ‘Open + Auth’ .  This just makes it easier to add apps while your developing, as the specific URL does not have to be registered in the directory.  Once your ready, you can lock that down with a setting of ‘Strict’ or ‘App’.  
+If you have not done so already, go to [https://platform.connectifi.app](https://platform.connectifi.app) and create a directory.  When setting up your directory, we recommend starting with an Interop Strategy setting of ‘Open’ or ‘Open + Auth’ .  This just makes it easier to add apps while your developing, as the specific app URL does not have to be registered in the directory.  Once you're ready, you can add more security with a setting of ‘Strict’ or ‘App’.  
 
 After you’ve created your directory, add an entry for your grid app.  Set  Agent SDK to ‘Web’ and add the URL for launching your grid app.
 
