@@ -11,7 +11,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: 'https://discord.gg/VwRaeC4F',
   },
-  docsRepositoryBase: 'https://github.com/connectifi-co/docs',
+  docsRepositoryBase: 'https://github.com/connectifi-co/docs/tree/main',
   faviconGlyph: '/favicon.png',
   footer: {
     text: '',
