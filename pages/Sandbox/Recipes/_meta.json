@@ -1,4 +1,7 @@
 {
    "contextgrids": "Context Grids",
-   "sharing": "Sharing" 
+   "xdevice": "Cross-Device",
+   "multistep": "Multi-step Intents",
+   "notifications":  "Notifications",
+   "sharing": "Sharing"  
 }
