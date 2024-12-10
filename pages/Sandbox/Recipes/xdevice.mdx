@@ -1,6 +1,6 @@
 # Building Cross Device Experiences
 ## Overview
-One of the major limitations of FDC3 that we aimed to overcome when starting Connectifi was its desktop-only nature. While the 'D' in 'FDC3' stands for 'desktop,' at Connectifi, we envisioned changing it to 'device.' Working across devices has become essential today, as we constantly switch between desktop and mobile workflows in both our work and personal lives. Connectifi enables sharing and handing off tasks, enabling you to build rich cross-device experiences with ease.
+Moving across devices is essential. Workflows should be user-centric, not device-centric, with no friction from sharing data and moving to the next step in a task.  Connectifi provides a complete solution across devices, going far beyond FDC3's focus on the desktop and enabling you to build rich cross-device experiences with ease.
 
 ## Ingredients
 You will need the following to build this integration: 
@@ -106,17 +106,17 @@ Together, this information can be used to group and decorate results in a way th
 ## Embellishments
 
 ### Customizing the UX
-When you load the agent from the NPM module or from the Service CDN, there is a default UI it will provide.  This UX isn’t necessarily optimized for mobile experience.  However, as noted above, the Connectifi service provides ample data for clients to navigate cross-device workflows and there is also a rich and full featured API for customizing Connectifi UX to suite your specific needs and brand.  You can find the full details from the API documentation here: [https://docs.connectifi.co/SDK/Web](https://docs.connectifi.co/SDK/Web) and a wide number of examples from the open source Getting Started repository here: [https://github.com/connectifi-co/getting-started](https://github.com/connectifi-co/getting-started)
+The Connectifi service provides ample data for clients to navigate cross-device workflows and there is also a rich and full featured API for customizing Connectifi UX to suite your specific needs and brand.  You can find the full details from the API documentation here: [https://docs.connectifi.co/SDK/Web](https://docs.connectifi.co/SDK/Web) and a wide number of examples from the open source Getting Started repository here: [https://github.com/connectifi-co/getting-started](https://github.com/connectifi-co/getting-started)
 
 ### Offline Mode
-Handling offline states is often a big consideration in mobile.  By default, the Connectifi Agent will automatically reconnect if a connection is dropped and restored.  The agent also supports APIs for detecting and handling these events.  
+Handling offline states is often a big consideration in mobile.  By default, the Connectifi Agent will automatically reconnect when dropped and restored.  The agent also supports APIs for detecting and handling these events.  
 
 ```javascript
   onConnected?: (initialConnect: boolean) => void;
   onDisconnected?: (nextConnect?: number) => void;
 ```
 
-Additionally, any FDC3 API calls made while offline will be rejected with an error of type ConnectionError.NoConnectionAvailable. This error can be handled and used to trigger a notification to the user, logging, and/or to queue events to replay when the connection is restored.
+Additionally, any FDC3 API calls made while offline will be rejected with an error of type `ConnectionError.NoConnectionAvailable`. This error can be handled and used to trigger a notification to the user, logging, and/or to queue events to replay when the connection is restored.
 
 ### Using the iOS Agent
 
