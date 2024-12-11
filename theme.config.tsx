@@ -9,7 +9,7 @@ const config: DocsThemeConfig = {
     link: 'https://docs.connectifi.co/',
   },
   chat: {
-    link: 'https://discord.gg/VwRaeC4F',
+    link: 'https://discord.com/channels/1296580749130203208/1296580749599969362',
   },
   docsRepositoryBase: 'https://github.com/connectifi-co/docs/tree/main',
   faviconGlyph: '/favicon.png',
