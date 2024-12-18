@@ -26,12 +26,18 @@ const config: DocsThemeConfig = {
       'Connectifi - Your Next Integration Platform'
     const title = config.title + (route === '/' ? '' : ' - Connectifi')
 
+    const img = 
+
     return (
       <>
         <title>{title}</title>
         <meta property="og:title" content={title} />
         <meta name="description" content={description} />
         <meta property="og:description" content={description} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image" content="/docs.png" />
 
         <meta name="msapplication-TileColor" content="#fff" />
         <meta httpEquiv="Content-Language" content="en" />
