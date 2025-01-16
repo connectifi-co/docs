@@ -6,7 +6,7 @@ import { useConfig, DocsThemeConfig } from 'nextra-theme-docs'
 const config: DocsThemeConfig = {
   logo: <span><img src="/wordmark.png" alt="Connectifi Wordmark" width="200"/></span>,
   project: {
-    link: 'https://docs.connectifi.co/',
+    link: 'https://github.com/connectifi-co/docs/',
   },
   chat: {
     link: 'https://discord.com/channels/1296580749130203208/1296580749599969362',
