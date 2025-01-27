@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": ["es2019"],
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "target": "es2019",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+  },
+  "exclude": ["node_modules", "cdk.out"],
+  "include": ["**/*.ts"]
+}

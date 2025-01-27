@@ -9,8 +9,8 @@ Feel free to add any bugs on the `issues` tab on Github. Additionally, do make a
 
 ## Run the Docs
 
-First, run `pnpm i` to install the dependencies.
-Then, run `pnpm dev` to start the development server and visit `localhost:3000`.
+First, run `npm i` to install the dependencies.
+Then, run `npm run dev` to start the development server and visit https://localhost:3005.
 
 ## Deployment and Github Pages
 
