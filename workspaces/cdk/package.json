@@ -1,0 +1,19 @@
+{
+  "name": "cdk",
+  "version": "1.0.1",
+  "scripts": {
+    "deploy": "STACK_PREFIX=docs STACK_VERSION=$(git describe --tags) cdk deploy --profile connectifi",
+    "deploy:dev": "STACK_PREFIX=docs-dev STACK_VERSION=$(git describe --tags) cdk deploy --profile connectifi",
+    "destroy": "STACK_PREFIX=docs cdk destroy",
+    "destroy:dev": "STACK_PREFIX=docs-dev cdk destroy",
+    "test": "jest",
+    "test:ci": "npm run test:prep && npm run test",
+    "test:prep": "mkdir ../ui/out",
+    "version-bump": "npm version --no-git-tag-version --allow-same-version"
+  },
+  "devDependencies": {
+    "aws-cdk": "2.159.1",
+    "aws-cdk-lib": "2.159.1",
+    "constructs": "^10.0.0"
+  }
+}

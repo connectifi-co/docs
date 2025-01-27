@@ -1,5 +1,7 @@
 .next
 node_modules
 out
+cdk.out
+coverage
 .DS_Store
 .vscode/
