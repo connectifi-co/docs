@@ -5,7 +5,7 @@ import { namespaceIt } from '../lib/utils';
 
 const app = new App();
 
-new ConnectifiDocsStack(app, namespaceIt('ConnectifiAppsStack'), {
+new ConnectifiDocsStack(app, namespaceIt('ConnectifiDocsStack'), {
   env: {
     region: process.env.CDK_DEFAULT_REGION,
   },

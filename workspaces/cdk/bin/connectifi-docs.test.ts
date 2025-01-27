@@ -15,7 +15,7 @@ describe('AWS CDK App', () => {
     expect(App).toHaveBeenCalled();
   });
 
-  it('should create an instance of ConnectifiAppsStack', () => {
+  it('should create an instance of ConnectifiDocsStack', () => {
     expect(ConnectifiDocsStack).toHaveBeenCalledWith(
       expect.any(App),
       expect.any(String),
