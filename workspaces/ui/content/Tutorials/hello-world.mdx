@@ -1,0 +1,94 @@
+import { Callout } from 'nextra/components';
+import { Steps } from 'nextra/components';
+
+# Hello World
+<Callout type="info" emoji="ℹ️">
+    To follow this tutorial, you'll need to register on [Connectifi Platform](https://platform.connectifi.app). 
+</Callout>
+
+At its core, application interoperability enables apps to share data without needing to know each other's specific APIs.   In this tutorial, we're going to start with Connectictifi by showing simple connection and communication between to instances of a simple pre-built Hello World app.
+ The apps will connect to the Connectifi Platform service, listen for messages, broadcast, and receive and render incoming messages.  
+
+ Before we get started, make sure you are registered on [Connectifi Platform](https://platform.connectifi.app) then follow the below set up steps.
+
+<Steps>
+### Create a Directory
+
+    Go to the *Directories* page on [Connectifi Platform](https://platform.connectifi.app) and click the button to [Create a Directory](https://platform.connectifi.app/directories/create).
+    ![Create a Directory](/tutorials/hello-world/createDirectory.png)
+
+#### Set *Interop Strategy* to 'Open'
+    On the Create Directory page, fill in the required fields for name and description, then set the *Interop Strategy* to 'Open'.  
+    This will allow any app to connect to the directory without user authentication.
+    ![Set Interop Strategy](/tutorials/hello-world/interopStrategy.png)
+#### Set *Broadcasting* to 'Allow Global Broadcasting'
+    Next, turn on 'Allow global broadcasting' under the *Broadcasting* property.
+    ![Allow Global Broadcasting](/tutorials/hello-world/broadcasting.png)
+#### Save the Directory
+    Finally, click through *Next* to the *Preview* step.  Review the Directory properties and click *Finish* if everything looks good.
+    ![Finish Directory Setup](/tutorials/hello-world/directoryFinish.png)
+<Callout type="info" emoji="✅">
+    Step one is complete!
+</Callout>
+
+### Get the Directory Identifier
+You will need the Directory ID for your apps to be able to connect to the Directory on the Connectifi Platform (and therefore, to each other).  
+Go to the settings page for the directory you created.  In the `Example Code` section, copy the part of the app identifier after the ‘@’ sign.
+![Get Directory Identifier](/tutorials/hello-world/directoryId.png)
+<Callout type="info" emoji="✅">
+    Step two is complete!
+</Callout>
+### Run the Apps
+   You can either set up and run the apps from your own local or cloud server directly from the code in [GITHUB], or use our pre-built project on [GLITCH].
+   For the purposes of this tutorial, we will use the Glitch example.
+
+   Remix and Configure the app on Glitch, adding the directory identifier into the env variables as described in the Readme for the project.
+
+   When you run the app, you should see the Connectfi logo in the lower right corner, like below.
+    [screenshot of Glitch app]
+
+   (add callout on cross-origin cookie issue)
+
+    Once that is running.  Open the same URL in a second  browser window. (This demo is easiest to see  if you arrange the windows side by side.
+    [screenshot of Glitch apps ] side by side
+<Callout type="info" emoji="✅">
+    Step three is complete!
+</Callout>
+### Try the Apps
+<Callout type="info" emoji="✅">
+    Broadcast Context from One App, you will see it populate in the log in the other and vice-versa.
+    [screen shot of this]
+    Step four is complete!
+</Callout>
+</Steps>
+
+## Understanding the App Code
+    #### Connecting
+    #### Adding a Context Listener 
+    #### Handling Context Broadcast 
+### Making the Connection 
+
+```ts
+ code here
+ ```
+### Adding Context Listeners
+
+```ts
+ code here
+ ```
+
+### Broadcasting
+
+```ts
+ code here
+ ```
+
+### Handling Context
+
+```ts
+ code here
+ ```
+
+## Next Steps
+Now that you know the basics...
+ 
