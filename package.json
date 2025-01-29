@@ -12,6 +12,8 @@
     "workspaces/ui"
   ],
   "scripts": {
+    "all": "npm run build && npm run deploy",
+    "deploy": "npm run -w cdk deploy",
     "dev": "npm run -w ui dev",
     "build": "npm run -w ui build",
     "serve": "npm run -w ui serve",
