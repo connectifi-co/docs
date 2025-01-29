@@ -16,7 +16,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     concurrency:
-      group: ${{ inputs.account }}docs--stack-deploy
+      group: ${{ inputs.account }}docs-stack-deploy
       cancel-in-progress: true
     permissions:
       contents: read
@@ -35,7 +35,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::${{ inputs.account }}:role/test_deployer
-          role-session-name: gha-deploy-apps-stack
+          role-session-name: gha-deploy-docs-stack
           aws-region: us-east-1
 
       - name: Setup Node.js
