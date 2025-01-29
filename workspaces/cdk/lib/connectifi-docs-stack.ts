@@ -17,8 +17,6 @@ import { Construct } from 'constructs';
 import { namespaceIt, getStackPrefix } from './utils';
 import { BucketEncryption } from 'aws-cdk-lib/aws-s3';
 
-const DNSSuffix = 'connectifi.app';
-
 export const makeSSMParamPath = (paramName: string) => {
   return `/connectifi/${namespaceIt(paramName, '/')}`;
 };
@@ -31,6 +29,7 @@ export class ConnectifiDocsStack extends Stack {
 
     const certArn = ssm.StringParameter.valueForStringParameter(this, makeSSMParamPath('certificateARN'));
     const hostedZoneId = ssm.StringParameter.valueForStringParameter(this, makeSSMParamPath('hostedZoneID'));
+    const DNSSuffix = ssm.StringParameter.valueForStringParameter(this, makeSSMParamPath('DNSSuffix'));
     const cert = certificatemanager.Certificate.fromCertificateArn(this, 'distributionCertificate', certArn);
 
     // create s3AccessLogs bucket

@@ -1,0 +1,15 @@
+name: main branch push - run tests and deploy to dev env
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+  deploy:
+    needs: test
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
