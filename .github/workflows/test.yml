@@ -20,4 +20,4 @@ jobs:
       - name: NPM install and test
         run: |
           npm ci
-          npm run test
+          npm run test:ci

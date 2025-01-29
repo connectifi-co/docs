@@ -16,6 +16,8 @@
     "build": "npm run -w ui build",
     "serve": "npm run -w ui serve",
     "test": "npm run test -ws --if-present",
+    "test:ci": "npm run test:prep && npm run test",
+    "test:prep": "npm run build",
     "lint": "npm run -w ui lint"
   },
   "devDependencies": {
