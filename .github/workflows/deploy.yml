@@ -50,4 +50,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy apps to the account
-        run: npm run -w cdk deploy
+        run: npm run all
