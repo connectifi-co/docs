@@ -1,0 +1,10 @@
+name: Deploy to prod on release
+
+on:
+  release:
+    types: [released] ## Not triggered on prereleased
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/github-deploy.yml
+    secrets: inherit

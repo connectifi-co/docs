@@ -2,10 +2,8 @@
   "name": "cdk",
   "version": "1.0.1",
   "scripts": {
-    "deploy": "STACK_PREFIX=docs STACK_VERSION=$(git describe --tags) cdk deploy --profile connectifi",
-    "deploy:dev": "STACK_PREFIX=docs-dev STACK_VERSION=$(git describe --tags) cdk deploy --profile connectifi",
+    "deploy": "STACK_PREFIX=docs STACK_VERSION=$(git describe --tags) cdk deploy",
     "destroy": "STACK_PREFIX=docs cdk destroy",
-    "destroy:dev": "STACK_PREFIX=docs-dev cdk destroy",
     "test": "jest",
     "test:ci": "npm run test:prep && npm run test",
     "test:prep": "mkdir ../ui/out",
