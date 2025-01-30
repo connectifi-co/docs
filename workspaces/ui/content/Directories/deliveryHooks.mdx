@@ -1,0 +1,142 @@
+# Delivery Hooks
+Connectifi Delivery Hooks enable the transformation and enrichment of context data just before delivery either as the result of an intent or broadcast. This capability is essential for scenarios where data needs to be standardized, enriched with additional details, or redacted for security and data privacy purposes.  Example use cases for Delivery Hooks include:
+
+- Enriching a financial instrument context with standard reference data such as company name
+- Filtering or altering the context data payload based on user entitlements
+- Performing destination-specific mapping of identifiers
+
+Delivery Hooks are simple web services that are called as part of Connectifi’s message queue.  They are configured on a per Directory basis and to handle specific context data types.
+
+![Delivery Hooks Flow](/directories/deliveryHooks-schematic.png)
+
+## Implementing a Hook
+
+Request and response JSON for a hook is described below.  The hook receives a POST request with a payload comprised of: 
+
+- the source application
+- the FDC3 context
+- an array of destination applications
+
+The hook response can contain two top level items: *context* and *changes*.  If the *context* is set at the top level, it applies to all destinations unless the changes property is also defined.  The changes property is an array of destination/context pairs that allows for full tailoring of the context flow.
+
+### Request Body
+
+```tsx
+{
+    context: FDC3Context,
+    source: FDC3AppName,
+    destinations: FDC3AppName[],
+}
+```
+
+### Response Body
+
+```tsx
+{
+    context?: FDC3Context,
+    changes?: [
+        {
+            destination: FDC3AppName
+            context: FDC3Context
+        },
+      . . .
+    ]
+}
+```
+
+### Using the SDK
+
+The [Connectifi SDK](https://www.npmjs.com/package/@connectifi/sdk) provides type support and helpers for developing delivery hooks, action handlers, and receptors.  
+
+Relevant types in the SDK are:
+
+- **DeliveryHookHandler** - convenience interface for implementing a delivery hook
+- **DeliveryHookRequest** - the request data a delivery hook implementation will receive
+- **DeliveryHookResponse** - the response data a delivery hook implementation must return
+- **DeliveryHookChange** - the changed context for a single destination
+
+## Configuration
+
+Hooks are added to specific directories.  Edit your Directory settings and go to the ‘Delivery Hooks’ step.
+![Admin Configuration - Delivery Hooks](/directories/deliveryHooks-admin-1.png)
+
+To add a Delivery Hook, enter the URL end point and specify one or more Context Data type for the hook to intercept.  Note: a hook can intercept more than one type of Context Data, but there can only be one hook per type in a Directory. 
+![Admin Configuration - Creating a Delivery Hook](/directories/deliveryHooks-admin-2.png)
+
+Additionally, you can customize these properties for your hook.
+
+- **Mandatory**: if set to mandatory, delivery of the context data will be aborted if the hook fails to run (e.g. if the hook times out).
+- **Custom Headers**: defines any number of headers to append to the request to the hook.  E.g. an API Key or Bearer Token for accessing the hook.
+- **Timeout**:  set a custom timeout value for the hook.
+
+The admin UI also supports testing the hook inline.  Some templated requests are provided, or enter your own as needed.
+![Admin Configuration - Testing Delivery Hooks](/directories/deliveryHooks-admin-3.png)
+
+## Examples
+
+Here is an example of Delivery Hook code enhancing an *fdc3.instrument* Context Data type.
+
+```tsx
+import { Context, ContextTypes } from '@finos/fdc3';
+import { DeliveryHookHandler } from '@connectifi/sdk';
+import { RequestError, ServerError } from '../types';
+import { EXTERNAL_API_URL } from '../constants';
+
+export const enrichInstrumentHook: DeliveryHookHandler = async (request) => {
+  const apiKey = process.env.EXTERNAL_API_KEY;
+  if (!apiKey) {
+    throw new ServerError('External API key missing');
+  }
+
+  const { context } = request;
+  if (context.type !== ContextTypes.Instrument) {
+    throw new RequestError('Unsupported context type');
+  }
+
+  const enrichedContext = await fetchAdditionalInstrumentData(apiKey, context as Instrument);
+  return { context: enrichedContext };
+};
+
+const fetchAdditionalInstrumentData = async (
+  apiKey: string,
+  context: Instrument,
+): Promise<Context> => {
+  const ticker = context.id.ticker;
+  const response = await fetch(`${EXTERNAL_API_URL}/instrument/${ticker}`, {
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new ServerError('Failed to fetch additional instrument data');
+  }
+
+  const data = await response.json();
+  return { ...context, additionalInfo: data };
+};
+```
+
+This example, shows how multiple context types can be handled within a Delivery Hook
+
+```tsx
+import { Context, ContextTypes } from '@finos/fdc3';
+import { DeliveryHookHandler } from '@connectifi/sdk';
+import { enhanceInstrument, enhanceOrder } from './enhancementFunctions';
+
+export const multiContextHook: DeliveryHookHandler = async (request) => {
+  const { context } = request;
+
+  switch (context.type) {
+    case ContextTypes.Instrument:
+      return { context: await enhanceInstrument(context as Instrument) };
+    case 'fdc3.order':
+      return { context: await enhanceOrder(context as Order) };
+    default:
+      return {}; // Pass through unmodified
+  }
+};
+```
+
+You can find many more full examples of Delivery Hooks and clone or fork them from our open source [Connectors](https://github.com/connectifi-co/connectors) repo on Github!
